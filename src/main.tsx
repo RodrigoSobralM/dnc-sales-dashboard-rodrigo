@@ -1,28 +1,28 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import App from './App.tsx'
+import { Login, Registration, Home, Leads, Profile } from './pages'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>LOGIN</div>,
+    element: <Login />,
   },
   {
     path: '/cadastro',
-    element: <div>CADASTRO</div>,
+    element: <Registration />,
   },
   {
     path: '/home',
-    element: <div>HOME</div>,
+    element: <Home />,
   },
   {
     path: '/leads',
-    element: <div>LEADS</div>,
+    element: <Leads />,
   },
   {
     path: '/perfil',
-    element: <div>PERFIL</div>,
+    element: <Profile />,
   },
 ])
 
