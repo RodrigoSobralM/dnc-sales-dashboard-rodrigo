@@ -1,5 +1,12 @@
+import { Header } from '@/components'
+
 const Profile = () => {
-  return <div>Profile</div>
+  return (
+    <>
+      <Header />
+      <h1>perfil</h1>
+    </>
+  )
 }
 
 export default Profile
