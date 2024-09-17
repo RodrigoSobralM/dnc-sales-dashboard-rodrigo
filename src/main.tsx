@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Login, Registration, Home, Leads, Profile } from './pages'
-import { GobalStyle, LigthTheme } from './styles'
+import { GobalStyle, DarkTheme, LigthTheme } from './styles'
 import { ThemeProvider } from 'styled-components'
 
 const router = createBrowserRouter([
