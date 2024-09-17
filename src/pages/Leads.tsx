@@ -1,5 +1,12 @@
+import { Header } from '@/components'
+
 const Leads = () => {
-  return <div>Leads</div>
+  return (
+    <>
+      <Header />
+      <h1>Leads</h1>
+    </>
+  )
 }
 
 export default Leads
