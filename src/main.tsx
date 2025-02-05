@@ -1,9 +1,25 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+  Outlet,
+} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { Login, Registration, Home, Leads, Profile } from './pages'
 import { GobalStyle } from './styles'
 import { AppThemeProvider } from './context/AppThemeContext'
+
+const ProtectedRoute = () => {
+  const checkAuthCookie = Cookies.get('Authorization')
+  if (!checkAuthCookie) {
+    alert('Autenticação necessária')
+    return <Navigate to="/" replace />
+  }
+
+  return <Outlet />
+}
 
 const router = createBrowserRouter([
   {
@@ -15,16 +31,21 @@ const router = createBrowserRouter([
     element: <Registration />,
   },
   {
-    path: '/home',
-    element: <Home />,
-  },
-  {
-    path: '/leads',
-    element: <Leads />,
-  },
-  {
-    path: '/perfil',
-    element: <Profile />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/home',
+        element: <Home />,
+      },
+      {
+        path: '/leads',
+        element: <Leads />,
+      },
+      {
+        path: '/perfil',
+        element: <Profile />,
+      },
+    ],
   },
 ])
 
