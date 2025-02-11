@@ -10,6 +10,8 @@ import Cookies from 'js-cookie'
 import { Login, Registration, Home, Leads, Profile } from './pages'
 import { GobalStyle } from './styles'
 import { AppThemeProvider } from './context/AppThemeContext'
+import { Provider } from 'react-redux'
+import store from './redux/index.ts'
 
 const ProtectedRoute = () => {
   const checkAuthCookie = Cookies.get('Authorization')
@@ -51,9 +53,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AppThemeProvider>
-      <GobalStyle />
-      <RouterProvider router={router} />
-    </AppThemeProvider>
+    <Provider store={store}>
+      <AppThemeProvider>
+        <GobalStyle />
+        <RouterProvider router={router} />
+      </AppThemeProvider>
+    </Provider>
   </React.StrictMode>
 )
