@@ -1,33 +1,63 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import App from './App.tsx'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+  Outlet,
+} from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { Login, Registration, Home, Leads, Profile } from './pages'
+import { GobalStyle } from './styles'
+import { AppThemeProvider } from './context/AppThemeContext'
+import { Provider } from 'react-redux'
+import store from './redux/index.ts'
+
+const ProtectedRoute = () => {
+  const checkAuthCookie = Cookies.get('Authorization')
+  if (!checkAuthCookie) {
+    alert('Autenticação necessária')
+    return <Navigate to="/" replace />
+  }
+
+  return <Outlet />
+}
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>LOGIN</div>,
+    element: <Login />,
   },
   {
     path: '/cadastro',
-    element: <div>CADASTRO</div>,
+    element: <Registration />,
   },
   {
-    path: '/home',
-    element: <div>HOME</div>,
-  },
-  {
-    path: '/leads',
-    element: <div>LEADS</div>,
-  },
-  {
-    path: '/perfil',
-    element: <div>PERFIL</div>,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/home',
+        element: <Home />,
+      },
+      {
+        path: '/leads',
+        element: <Leads />,
+      },
+      {
+        path: '/perfil',
+        element: <Profile />,
+      },
+    ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <AppThemeProvider>
+        <GobalStyle />
+        <RouterProvider router={router} />
+      </AppThemeProvider>
+    </Provider>
   </React.StrictMode>
 )
